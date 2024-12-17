@@ -6,8 +6,10 @@ import FilledHeartIcon from "../images/filled_heart_icon.svg";
 
 function LikeButton({ postId, isLiked, likeCount, onLikeChange }) {
   const navigate = useNavigate();
+
   const handleLike = async () => {
     console.log("Like button clicked for post ID:", postId);
+    console.log("Current isLiked state:", isLiked);
 
     try {
       const userEmail = JSON.parse(localStorage.user).email;
@@ -23,7 +25,6 @@ function LikeButton({ postId, isLiked, likeCount, onLikeChange }) {
             headers: { "x-username": userEmail },
           }
         );
-
         console.log("Unlike response:", response);
         onLikeChange(response.data.likeCount || likeCount - 1, false);
       } else {
@@ -34,7 +35,6 @@ function LikeButton({ postId, isLiked, likeCount, onLikeChange }) {
           { postId },
           { headers: { "x-username": userEmail } }
         );
-
         console.log("Like response:", response);
         onLikeChange(response.data.likeCount || likeCount + 1, true);
       }
