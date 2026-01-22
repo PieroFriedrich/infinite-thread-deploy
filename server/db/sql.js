@@ -5,7 +5,7 @@ const mysql = require("mysql2/promise");
 // Create a connection pool with optimized settings for serverless
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
-  user: process.env.DB_USER,
+  user: process.env.DB_USER, // update db_user
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   waitForConnections: true,
@@ -126,7 +126,7 @@ const initializeDatabase = async () => {
       try {
         await connection.query(
           `INSERT IGNORE INTO ${database}.tags (name) VALUES (?)`,
-          [tag]
+          [tag],
         );
       } catch (tagError) {
         console.warn(`Error inserting tag ${tag}:`, tagError);
